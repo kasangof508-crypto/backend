@@ -13,3 +13,11 @@ startScheduler();
 const shutdown = async () => { server.close(); await pool.end().catch(() => {}); process.exit(0); };
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
+
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        message: 'API is running successfully',
+        timestamp: new Date().toISOString()
+    });
+});
